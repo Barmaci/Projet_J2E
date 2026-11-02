@@ -7,16 +7,16 @@ import java.io.Serializable;
 @Entity
 @Table(name = "produits")
 public class Produit implements Serializable {
+//attributs
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String reference;
     private String designation;
     private Double prixUnitaire;
     private Integer quantiteStock;
     private Integer seuilAlerte;
-
+//Constructors
     public Produit() {
     }
     public  Produit ( String reference, String designation, Double prixUnitaire, Integer quantiteStock, Integer seuilAlerte){
@@ -26,7 +26,7 @@ public class Produit implements Serializable {
         this.quantiteStock = quantiteStock;
         this.seuilAlerte = seuilAlerte;
     }
-
+// getters and setters
     public Integer getId() {
         return id;
     }

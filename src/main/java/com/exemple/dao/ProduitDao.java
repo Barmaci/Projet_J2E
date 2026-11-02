@@ -6,11 +6,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 // La classe tenant compte de gérer les produits
-public class ProduitDao {
+
+public class ProduitDao implements ProduitDaoInterface{
     public ProduitDao() {
     }
 
     // La methode responsable de créer un produit
+    @Override
     public void save(Produit produit) {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSession()) {
