@@ -1,5 +1,10 @@
+<%@ page   %>
 <html>
+<head>
+    <title>Page arrive</title>
+    <jsp:include page="" />
+</head>
 <body>
-<h2>Hello World!</h2>
+    <h2 class="text">Hello World!</h2>
 </body>
 </html>

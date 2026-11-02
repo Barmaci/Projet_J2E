@@ -5,6 +5,7 @@ target/
 .kotlin
 
 ### IntelliJ IDEA ###
+.idea/*
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
@@ -38,3 +39,8 @@ build/
 ### Mac OS ###
 .DS_Store
 
+### .smarttomcat
+.smarttomcat/*
+
+### Hibernate cfg.xml
+/src/main/resources/hibernate.cfg.xml

@@ -20,6 +20,7 @@ public class ProduitServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         Produit produit = new Produit(
                 "P01",
                 "Matiere Premeiere",
