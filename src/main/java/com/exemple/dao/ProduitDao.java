@@ -7,34 +7,28 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-// La classe tenant compte de gérer les produits
-public class ProduitDao implements ProduitDaoInterface{
-    public ProduitDao() {
-    }
+public class ProduitDao implements ProduitDaoInterface {
 
-    // La methode responsable d'extraire tous les produits de la BD avec pagination
     @Override
     public List<Produit> findAll(int page, int size) {
-        if (page < 1) page = 1;
-        if (size <= 0) size = 10;
+        int p = Math.max(page, 1);
+        int s = size > 0 ? size : 10;
 
-        int offset = ( page - 1) * size;
-        List<Produit> produits = null;
-
-        try ( Session session = HibernateUtil.getSession()){
-            produits = session
-                    .createQuery("FROM Produit p order by p.id", Produit.class)
-                    .setFirstResult(offset)
-                    .setMaxResults(page)
-                    .list();
-        } catch ( RuntimeException e){
-            e.printStackTrace();
+        try (Session session = HibernateUtil.getSession()) {
+            return session.createQuery("FROM Produit p ORDER BY p.id", Produit.class)
+                    .setFirstResult((p - 1) * s)
+                    .setMaxResults(s)
+                    .getResultList();
         }
-
-        return produits;
     }
 
-    // La methode responsable de créer un produit
+    @Override
+    public Produit findOne(int id) {
+        try (Session session = HibernateUtil.getSession()) {
+            return session.find(Produit.class, id);
+        }
+    }
+
     @Override
     public void save(Produit produit) {
         Transaction tx = null;
@@ -48,13 +42,38 @@ public class ProduitDao implements ProduitDaoInterface{
         }
     }
 
-    // Compter le nombre de produits dans la BD
+    @Override
+    public Produit update(Produit newProduit) {
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSession()) {
+            tx = session.beginTransaction();
+
+            Produit existant = session.find(Produit.class, newProduit.getId());
+            if (existant == null) {
+                tx.rollback();
+                return null;
+            }
+
+            existant.setReference(newProduit.getReference());
+            existant.setDesignation(newProduit.getDesignation());
+            existant.setPrixUnitaire(newProduit.getPrixUnitaire());
+            existant.setQuantiteStock(newProduit.getQuantiteStock());
+            existant.setSeuilAlerte(newProduit.getSeuilAlerte());
+
+            tx.commit();
+            return existant;
+
+        } catch (RuntimeException e) {
+            if (tx != null && tx.isActive()) tx.rollback();
+            throw e;
+        }
+    }
+
     @Override
     public long count() {
-        try (Session session = HibernateUtil.getSession()){
-            return  session
-                    .createQuery("SELECT count(p) from Produit p", Long.class)
-                    .uniqueResult();
+        try (Session session = HibernateUtil.getSession()) {
+            return session.createQuery("SELECT count(p) FROM Produit p", Long.class)
+                    .getSingleResult();
         }
     }
 }

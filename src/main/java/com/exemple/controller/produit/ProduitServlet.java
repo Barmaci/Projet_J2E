@@ -1,6 +1,6 @@
-package com.exemple.controller;
+package com.exemple.controller.produit;
 
-import com.exemple.dao.ProduitDao;
+
 import com.exemple.model.Produit;
 import com.exemple.service.ProduitService;
 import com.exemple.util.PageResult;
@@ -31,14 +31,9 @@ public class ProduitServlet extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/produit/produits.jsp").forward(req, resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
-    }
-
     // Methode qui retourne la valeur int du string s si c'est un nbr ou la valeur def
     private int parseIntOrDefault(String s, int def) {
         try { return Integer.parseInt(s); } catch (Exception e) { return def; }
     }
+
 }

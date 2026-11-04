@@ -15,4 +15,16 @@ public class ProduitService {
 
         return new PageResult<>(contenu, page, size, total);
     }
+
+    public Produit listerProduit(int id){
+        return produitDao.findOne(id);
+    }
+
+    public Produit modifier(Produit produit){
+        return produitDao.update(produit);
+    }
+
+    public void creer(Produit p){
+         produitDao.save(p);
+    }
 }
