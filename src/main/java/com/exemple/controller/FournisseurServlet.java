@@ -1,0 +1,42 @@
+package com.exemple.controller;
+
+import com.exemple.model.Fournisseur;
+import com.exemple.service.FournisseurService;
+import com.exemple.util.PageResult;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet("/fournisseur")
+public class FournisseurServlet extends HttpServlet {
+    private FournisseurService service;
+
+    @Override
+    public void init() throws ServletException {
+        service = new FournisseurService();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int page = parseIntOrDefault(req.getParameter("page"), 1);
+        int size = parseIntOrDefault(req.getParameter("size"), 10);
+
+        PageResult<Fournisseur> result = service.lister(page, size);
+
+        req.setAttribute("result", result);
+        req.getRequestDispatcher("/WEB-INF/fournisseur/fournisseurs.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+    // Methode qui retourne la valeur int du string s si c'est un nbr ou la valeur def
+    private int parseIntOrDefault(String s, int def) {
+        try { return Integer.parseInt(s); } catch (Exception e) { return def; }
+    }
+}
