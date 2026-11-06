@@ -1,0 +1,152 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 30px;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+}
+
+table {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e3e6ea;
+}
+
+thead th {
+    background: #2c3e50;
+    color: #fff;
+    font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+    background: #f9fafb;
+}
+
+tbody tr:hover {
+    background: #eaf2fb;
+}
+
+/* Stock faible */
+.alerte td {
+    background: #fdecea;
+}
+
+.etat-faible {
+    color: #c0392b;
+    font-weight: bold;
+}
+
+.etat-ok {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+/* Info de page et navigation */
+.info-page {
+    text-align: center;
+    margin-top: 20px;
+    color: #555;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 14px;
+    margin: 0 4px;
+    background: #2c3e50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.pagination a:hover {
+    background: #3d566e;
+}
+
+/* pour produit.jsp */
+.form-produit {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px 24px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display:  flex;
+    flex-direction: column;
+}
+
+.form-produit label {
+    display: block;
+    margin: 14px 0 4px;
+    font-weight: 600;
+}
+
+.form-produit input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-produit .actions {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.form-produit button {
+    padding: 9px 18px;
+    background: #2c3e50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-produit button:hover {
+    background: #3d566e;
+}
+
+.erreur {
+    max-width: 500px;
+    margin: 0 auto 12px;
+    padding: 10px;
+    background: #fdecea;
+    color: #c0392b;
+    border-radius: 4px;
+}
+
+/* */
+.aButton {
+    padding : 9px 18px;
+    background-color: #3498db;
+    color : #e3e6ea;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.produits-top-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
