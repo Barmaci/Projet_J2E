@@ -15,4 +15,16 @@ public class FournisseurService {
 
         return new PageResult<>(contenu, page, size, total);
     }
+
+    public Fournisseur listerFournisseur(int id) {
+        return fournisseurDao.findOne(id);
+    }
+
+    public Fournisseur modifier(Fournisseur fournisseur) {
+        return fournisseurDao.update(fournisseur);
+    }
+
+    public void creer(Fournisseur f) {
+        fournisseurDao.save(f);
+    }
 }

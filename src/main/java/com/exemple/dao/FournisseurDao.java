@@ -7,34 +7,28 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-// La classe tenant compte de gérer les fournisseurs
 public class FournisseurDao implements FournisseurDaoInterface {
-    public FournisseurDao() {
-    }
 
-    // La methode responsable d'extraire tous les fournisseurs de la BD avec pagination
     @Override
     public List<Fournisseur> findAll(int page, int size) {
-        if (page < 1) page = 1;
-        if (size <= 0) size = 10;
-
-        int offset = (page - 1) * size;
-        List<Fournisseur> fournisseurs = null;
+        int p = Math.max(page, 1);
+        int s = size > 0 ? size : 10;
 
         try (Session session = HibernateUtil.getSession()) {
-            fournisseurs = session
-                    .createQuery("FROM Fournisseur f order by f.id", Fournisseur.class)
-                    .setFirstResult(offset)
-                    .setMaxResults(page)
-                    .list();
-        } catch (RuntimeException e) {
-            e.printStackTrace();
+            return session.createQuery("FROM Fournisseur f ORDER BY f.id", Fournisseur.class)
+                    .setFirstResult((p - 1) * s)
+                    .setMaxResults(s)
+                    .getResultList();
         }
-
-        return fournisseurs;
     }
 
-    // La methode responsable de créer un fournisseur
+    @Override
+    public Fournisseur findOne(int id) {
+        try (Session session = HibernateUtil.getSession()) {
+            return session.find(Fournisseur.class, id);
+        }
+    }
+
     @Override
     public void save(Fournisseur fournisseur) {
         Transaction tx = null;
@@ -48,13 +42,36 @@ public class FournisseurDao implements FournisseurDaoInterface {
         }
     }
 
-    // Compter le nombre de fournisseurs dans la BD
+    @Override
+    public Fournisseur update(Fournisseur newFournisseur) {
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSession()) {
+            tx = session.beginTransaction();
+
+            Fournisseur existant = session.find(Fournisseur.class, newFournisseur.getId());
+            if (existant == null) {
+                tx.rollback();
+                return null;
+            }
+
+            existant.setNom(newFournisseur.getNom());
+            existant.setTelephone(newFournisseur.getTelephone());
+            existant.setAdresse(newFournisseur.getAdresse());
+
+            tx.commit();
+            return existant;
+
+        } catch (RuntimeException e) {
+            if (tx != null && tx.isActive()) tx.rollback();
+            throw e;
+        }
+    }
+
     @Override
     public long count() {
         try (Session session = HibernateUtil.getSession()) {
-            return session
-                    .createQuery("SELECT count(f) from Fournisseur f", Long.class)
-                    .uniqueResult();
+            return session.createQuery("SELECT count(f) FROM Fournisseur f", Long.class)
+                    .getSingleResult();
         }
     }
 }

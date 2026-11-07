@@ -1,4 +1,4 @@
-package com.exemple.controller;
+package com.exemple.controller.fournisseur;
 
 import com.exemple.model.Fournisseur;
 import com.exemple.service.FournisseurService;
@@ -30,10 +30,7 @@ public class FournisseurServlet extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/fournisseur/fournisseurs.jsp").forward(req, resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    }
 
     // Methode qui retourne la valeur int du string s si c'est un nbr ou la valeur def
     private int parseIntOrDefault(String s, int def) {

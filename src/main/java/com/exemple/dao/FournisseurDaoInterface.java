@@ -5,7 +5,10 @@ import com.exemple.model.Fournisseur;
 import java.util.List;
 
 public interface FournisseurDaoInterface {
-    public List<Fournisseur> findAll(int page , int size);
+
+    public List<Fournisseur> findAll(int page, int size);
+    public Fournisseur findOne(int id);
     public void save(Fournisseur fournisseur);
+    public Fournisseur update(Fournisseur newFournisseur);
     public long count();
 }
