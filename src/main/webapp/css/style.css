@@ -1,12 +1,40 @@
+/* =====================================================
+   style.css : feuille de style unique de l'application
+   Pages : produits, produit, nouveau_produit, mouvements, nav
+   ===================================================== */
+
+/* ---------- 1. Variables ---------- */
 :root {
+    --c-primary: #2c3e50;
+    --c-primary-hover: #3d566e;
+    --c-accent: #3498db;
+    --c-accent-hover: #2b82bd;
+    --c-ok: #27ae60;
+    --c-danger: #c0392b;
+    --c-warning: #d68910;
+
+    --c-bg: #f4f6f8;
+    --c-surface: #ffffff;
+    --c-border: #e3e6ea;
+    --c-text: #333333;
+    --c-muted: #6b7280;
+
+    --c-danger-bg: #fdecea;
+    --c-ok-bg: #e8f6ee;
+    --c-warning-bg: #fef5e1;
+    --c-head-bg: #e8edf5;
+
     --sidebar-width: 240px;
     --sidebar-bg: #1f2d3d;
     --sidebar-hover: #2c3e50;
-    --accent: #3498db;
-    --text-light: #ecf0f1;
-    --page-bg: #f4f6f8;
+    --sidebar-text: #ecf0f1;
+
+    --radius: 8px;
+    --shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    --space: 16px;
 }
 
+/* ---------- 2. Base ---------- */
 * {
     box-sizing: border-box;
 }
@@ -14,29 +42,74 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: var(--page-bg);
-    color: #333;
+    font-size: 15px;
+    line-height: 1.5;
+    background: var(--c-bg);
+    color: var(--c-text);
 }
 
-/* ---------- Layout ---------- */
-.layout {
-    min-height: 100vh;
+h1 {
+    margin: 0 0 24px;
+    font-size: 24px;
+    color: var(--c-primary);
 }
 
+h2 {
+    margin: 0 0 var(--space);
+    font-size: 20px;
+    color: var(--c-primary);
+}
+
+h3 {
+    margin: 0 0 var(--space);
+    font-size: 17px;
+    color: var(--c-primary);
+}
+
+a {
+    color: var(--c-accent);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+:focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 2px;
+}
+
+/* ---------- 3. Mise en page ---------- */
 .content {
     margin-left: var(--sidebar-width);
     padding: 30px;
 }
 
-/* ---------- Barre latérale ---------- */
+.container {
+    max-width: 1000px;
+}
+
+/* En-tête de page : titre à gauche, bouton à droite */
+.produits-top-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space);
+    margin-bottom: 24px;
+}
+
+.produits-top-div h1 {
+    margin: 0;
+}
+
+/* ---------- 4. Barre latérale ---------- */
 .sidebar {
     position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
+    inset: 0 auto 0 0;
     width: var(--sidebar-width);
     background: var(--sidebar-bg);
-    color: var(--text-light);
+    color: var(--sidebar-text);
     display: flex;
     flex-direction: column;
     z-index: 100;
@@ -64,19 +137,18 @@ body {
 .sidebar-nav a {
     display: block;
     padding: 12px 20px;
-    color: var(--text-light);
-    text-decoration: none;
+    color: var(--sidebar-text);
     border-left: 4px solid transparent;
-    transition: background 0.15s, border-color 0.15s;
 }
 
 .sidebar-nav a:hover {
     background: var(--sidebar-hover);
+    text-decoration: none;
 }
 
 .sidebar-nav a.active {
     background: var(--sidebar-hover);
-    border-left-color: var(--accent);
+    border-left-color: var(--c-accent);
     font-weight: bold;
 }
 
@@ -87,14 +159,367 @@ body {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* ---------- Petits écrans ---------- */
-@media (max-width: 768px) {
+/* ---------- 5. Cartes ---------- */
+.card {
+    background: var(--c-surface);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+}
+
+.retour {
+    display: inline-block;
+    margin-bottom: var(--space);
+}
+
+/* ---------- 6. Boutons ---------- */
+.btn,
+.aButton,
+.form-produit button {
+    display: inline-block;
+    padding: 9px 18px;
+    background: var(--c-accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn:hover,
+.aButton:hover,
+.form-produit button:hover {
+    background: var(--c-accent-hover);
+    text-decoration: none;
+}
+
+/* ---------- 7. Formulaires ---------- */
+label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid #ccd1d6;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-family: inherit;
+    background: #fff;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--c-accent);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+input[readonly] {
+    background: #eef0f3;
+    color: var(--c-muted);
+    cursor: not-allowed;
+}
+
+/* Formulaire produit (création et édition) */
+.form-produit {
+    max-width: 500px;
+    padding: 24px;
+    background: var(--c-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.form-produit label {
+    margin-top: 14px;
+}
+
+.form-produit > label:first-of-type,
+.form-produit > .champ:first-of-type label {
+    margin-top: 0;
+}
+
+.form-produit .actions {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: var(--space);
+}
+
+/* Formulaire de mouvement (en ligne) */
+.form-mvt {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr auto;
+    gap: 12px;
+    align-items: end;
+}
+
+/* ---------- 8. Messages ---------- */
+.erreur {
+    max-width: 500px;
+    margin-bottom: var(--space);
+    padding: 12px 16px;
+    background: var(--c-danger-bg);
+    color: var(--c-danger);
+    border-left: 4px solid var(--c-danger);
+    border-radius: var(--radius);
+}
+
+.container > .erreur {
+    max-width: none;
+    margin-bottom: 24px;
+}
+
+/* ---------- 9. Tableaux ---------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--c-surface);
+}
+
+th,
+td {
+    padding: 11px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--c-border);
+}
+
+thead th {
+    background: var(--c-head-bg);
+    color: var(--c-primary);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+tbody tr:hover {
+    background: #f6f9fc;
+}
+
+/* Liste des produits : tableau posé directement sur la page */
+.table-cards {
+    box-shadow: var(--shadow);
+}
+
+tr.alerte td {
+    background: var(--c-danger-bg);
+}
+
+.ligne-vide td,
+.vide {
+    text-align: center;
+    color: var(--c-muted);
+    padding: 24px;
+}
+
+.actions-cell a {
+    margin-right: 12px;
+}
+
+/* ---------- 10. États et badges ---------- */
+.etat-ok {
+    color: var(--c-ok);
+    font-weight: bold;
+}
+
+.etat-faible,
+.stock-faible {
+    color: var(--c-danger);
+    font-weight: bold;
+}
+
+.badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.badge.ENTREE {
+    background: var(--c-ok-bg);
+    color: var(--c-ok);
+}
+
+.badge.SORTIE {
+    background: var(--c-danger-bg);
+    color: var(--c-danger);
+}
+
+.badge.AJUSTEMENT {
+    background: var(--c-warning-bg);
+    color: var(--c-warning);
+}
+
+/* ---------- 11. Fiche produit (page mouvements) ---------- */
+.infos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space);
+}
+
+.info span {
+    display: block;
+    font-size: 13px;
+    color: var(--c-muted);
+}
+
+.info strong {
+    font-size: 18px;
+    color: var(--c-primary);
+}
+
+.info strong.stock-faible {
+    color: var(--c-danger);
+}
+
+/* ---------- 12. Pagination ---------- */
+.info-page {
+    text-align: center;
+    margin: 20px 0 8px;
+    color: var(--c-muted);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.pagination a {
+    padding: 8px 14px;
+    background: var(--c-primary);
+    color: #fff;
+    border-radius: var(--radius);
+}
+
+.pagination a:hover {
+    background: var(--c-primary-hover);
+    text-decoration: none;
+}
+
+/* ---------- 13. Petits écrans (< 768px) ---------- */
+@media (max-width: 767px) {
     .sidebar {
         position: static;
         width: 100%;
     }
+
     .content {
         margin-left: 0;
-        padding: 16px;
+        padding: var(--space);
+    }
+
+    .produits-top-div {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .form-mvt {
+        grid-template-columns: 1fr;
+    }
+
+    /* Tableau -> cartes */
+    .table-cards,
+    .table-cards tbody,
+    .table-cards tr,
+    .table-cards td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-cards {
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .table-cards thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+    }
+
+    .table-cards tbody tr {
+        background: var(--c-surface);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin-bottom: var(--space);
+        padding: 6px 14px;
+        border-left: 5px solid var(--c-ok);
+    }
+
+    .table-cards tbody tr:hover {
+        background: var(--c-surface);
+    }
+
+    .table-cards tbody tr.alerte {
+        background: var(--c-danger-bg);
+        border-left-color: var(--c-danger);
+    }
+
+    .table-cards tr.alerte td {
+        background: transparent;
+    }
+
+    .table-cards td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        text-align: right;
+        padding: 9px 0;
+        border-bottom: 1px dashed var(--c-border);
+    }
+
+    .table-cards td:last-child {
+        border-bottom: none;
+    }
+
+    .table-cards td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--c-primary);
+        text-align: left;
+        flex-shrink: 0;
+    }
+
+    .table-cards td.actions-cell {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        gap: 8px;
+        padding-top: 12px;
+    }
+
+    .table-cards td.actions-cell::before {
+        display: none;
+    }
+
+    .table-cards td.actions-cell a {
+        margin: 0;
+        padding: 9px;
+        background: var(--c-primary);
+        color: #fff;
+        border-radius: 6px;
+    }
+
+    .table-cards tr.ligne-vide td {
+        justify-content: center;
+    }
+
+    .table-cards tr.ligne-vide td::before {
+        display: none;
     }
 }

@@ -1,3 +1,4 @@
+/* Produit.css */
 body {
     font-family: Arial, Helvetica, sans-serif;
     background: #f4f6f8;
@@ -89,7 +90,7 @@ tbody tr:hover {
     background: #fff;
     padding: 20px 24px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    display:  flex;
+    display: flex;
     flex-direction: column;
 }
 
@@ -138,9 +139,9 @@ tbody tr:hover {
 
 /* */
 .aButton {
-    padding : 9px 18px;
+    padding: 9px 18px;
     background-color: #3498db;
-    color : #e3e6ea;
+    color: #e3e6ea;
     text-decoration: none;
     border-radius: 8px;
 }
@@ -149,4 +150,134 @@ tbody tr:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+/* Liens d'actions (affichage tableau) */
+.actions-cell a {
+    color: #3498db;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.actions-cell a:hover {
+    text-decoration: underline;
+}
+
+/* Transformer table en cartes lorsque l'écran n'est pas suffisament grande*/
+
+@media (max-width: 767px) {
+    body {
+        padding: 16px;
+    }
+
+    .produits-top-div {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        text-align: center;
+    }
+
+    /* On neutralise la structure de tableau */
+    .table-cards,
+    .table-cards tbody,
+    .table-cards tr,
+    .table-cards td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-cards {
+        background: transparent;
+        box-shadow: none;
+    }
+
+    /* En-tête masqué visuellement (reste accessible aux lecteurs d'écran) */
+    .table-cards thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+    }
+
+    /* Chaque ligne = une card */
+    .table-cards tbody tr {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 16px;
+        padding: 6px 14px;
+        border-left: 5px solid #27ae60;
+    }
+
+    .table-cards tbody tr:nth-child(even) {
+        background: #fff;
+    }
+
+    .table-cards tbody tr:hover {
+        background: #fff;
+    }
+
+    /* Card en alerte */
+    .table-cards tbody tr.alerte {
+        background: #fdecea;
+        border-left-color: #c0392b;
+    }
+
+    .alerte td {
+        background: transparent;
+    }
+
+    /* Chaque cellule : label à gauche, valeur à droite */
+    .table-cards td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        text-align: right;
+        padding: 9px 0;
+        border-bottom: 1px dashed #e3e6ea;
+    }
+
+    .table-cards td:last-child {
+        border-bottom: none;
+    }
+
+    .table-cards td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #2c3e50;
+        text-align: left;
+        flex-shrink: 0;
+    }
+
+    /* Actions : boutons pleine largeur */
+    .table-cards td.actions-cell {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        gap: 8px;
+        padding-top: 12px;
+    }
+
+    .table-cards td.actions-cell::before {
+        display: none;
+    }
+
+    .table-cards td.actions-cell a {
+        margin: 0;
+        padding: 9px;
+        background: #2c3e50;
+        color: #fff;
+        border-radius: 6px;
+    }
+
+    /* Ligne "Aucun produit" */
+    .table-cards tr.ligne-vide td {
+        justify-content: center;
+    }
+
+    .table-cards tr.ligne-vide td::before {
+        display: none;
+    }
 }

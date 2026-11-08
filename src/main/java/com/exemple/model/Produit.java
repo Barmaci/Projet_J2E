@@ -3,6 +3,8 @@ package com.exemple.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "produits")
@@ -17,6 +19,9 @@ public class Produit implements Serializable {
     private Integer quantiteStock;
     private Integer seuilAlerte;
 
+    @OneToMany(mappedBy = "produit")
+    private List<MouvementStock> mouvementStock = new ArrayList<>();
+
     public Produit() {}
 
     public  Produit ( String reference, String designation, Double prixUnitaire, Integer quantiteStock, Integer seuilAlerte){
@@ -25,6 +30,10 @@ public class Produit implements Serializable {
         this.prixUnitaire = prixUnitaire;
         this.quantiteStock = quantiteStock;
         this.seuilAlerte = seuilAlerte;
+    }
+
+    public List<MouvementStock> getMouvementStock() {
+        return this.mouvementStock;
     }
 
     public Integer getId() {

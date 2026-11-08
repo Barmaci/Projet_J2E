@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Nouveau produit</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/produit.css">
+<%--    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/produit.css">--%>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>

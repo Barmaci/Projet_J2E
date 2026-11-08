@@ -33,7 +33,7 @@ public class EditProduitServlet extends HttpServlet {
         String reference   = req.getParameter("reference");
         String designation = req.getParameter("designation");
         String prixStr     = req.getParameter("prixUnitaire");
-        String stockStr    = req.getParameter("quantiteStock");
+//        String stockStr    = req.getParameter("quantiteStock");
         String seuilStr    = req.getParameter("seuilAlerte");
 
         Produit p = new Produit();
@@ -41,7 +41,7 @@ public class EditProduitServlet extends HttpServlet {
         p.setReference(reference);
         p.setDesignation(designation);
         p.setPrixUnitaire(Double.parseDouble(prixStr));
-        p.setQuantiteStock(Integer.parseInt(stockStr));
+//        p.setQuantiteStock(Integer.parseInt(stockStr));
         p.setSeuilAlerte(Integer.parseInt(seuilStr));
 
         service.modifier(p);
