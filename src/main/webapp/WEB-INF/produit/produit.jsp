@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <title>Produit <%= produit.getReference() %>
     </title>
-    <link rel="stylesheet" href="<%= ctx %>/css/produit.css">
+<%--    <link rel="stylesheet" href="<%= ctx %>/css/produit.css">--%>
     <link rel="stylesheet" href="<%= ctx %>/css/style.css">
 </head>
 <body>
@@ -22,8 +22,7 @@
         </h1>
 
         <% if (erreur != null) { %>
-        <p class="erreur"><%= erreur %>
-        </p>
+        <p class="erreur"><%= erreur %></p>
         <% } %>
 
         <form method="post" action="<%= ctx %>/produit/editer/<%=produit.getId()%>" class="form-produit">
@@ -43,7 +42,7 @@
                    value="<%= produit.getPrixUnitaire() %>">
 
             <label for="quantiteStock">Quantité en stock</label>
-            <input type="number" id="quantiteStock" name="quantiteStock" min="0" required
+            <input readonly type="number" id="quantiteStock" name="quantiteStock" min="0" required
                    value="<%= produit.getQuantiteStock() %>">
 
             <label for="seuilAlerte">Seuil d'alerte</label>
