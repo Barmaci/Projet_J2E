@@ -14,11 +14,17 @@ public class MouvementStock implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private TypeMouvementStock type;
+
+    @Column(name = "quantite", nullable = false)
     private Integer quantite;
+
+    @Column(name = "date_creation", nullable = false)
     private LocalDateTime date;
+
+    @Column(name = "commentaire", nullable = true)
     private String commentaire;
 
-    @ManyToOne(/*fetch = FetchType.LAZY*/) // Lazy fetch permet de ne pas fetcher les mouvement de stock d'un produit lorsque on fetch un produit`
+    @ManyToOne(fetch = FetchType.LAZY) // Lazy fetch permet de ne pas fetcher les mouvement de stock d'un produit lorsque on fetch un produit`
     @JoinColumn(name = "produit_id")
     private Produit produit;
 

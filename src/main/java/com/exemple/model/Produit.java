@@ -13,18 +13,24 @@ public class Produit implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "reference", nullable = false, unique = true)
     private String reference;
+    @Column(name = "designation", nullable = false)
     private String designation;
+    @Column(name = "prix_unitaire", nullable = false)
     private Double prixUnitaire;
+    @Column(name = "quantite_stock", nullable = false)
     private Integer quantiteStock;
+    @Column(name = "seuil_alerte", nullable = false)
     private Integer seuilAlerte;
 
     @OneToMany(mappedBy = "produit")
     private List<MouvementStock> mouvementStock = new ArrayList<>();
 
-    public Produit() {}
+    public Produit() {
+    }
 
-    public  Produit ( String reference, String designation, Double prixUnitaire, Integer quantiteStock, Integer seuilAlerte){
+    public Produit(String reference, String designation, Double prixUnitaire, Integer quantiteStock, Integer seuilAlerte) {
         this.reference = reference;
         this.designation = designation;
         this.prixUnitaire = prixUnitaire;

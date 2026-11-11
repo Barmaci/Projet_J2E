@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <title>Produits</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<%--    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/produit.css">--%>
+    <%--    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/produit.css">--%>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
@@ -22,15 +22,17 @@
     <%@ include file="/WEB-INF/nav.jsp" %>
 
     <main class="content">
-        <div class="produits-top-div">
-            <h1>Liste des produits</h1>
-            <div>
-                <a href="<%=request.getContextPath()%>/produit/nouveau" class="aButton">Nouveau produit</a>
+        <div class="card">
+
+            <div class="produits-top-div">
+                <h1>Liste des produits</h1>
+                <div>
+                    <a href="<%=request.getContextPath()%>/produit/nouveau" class="aButton">Nouveau produit</a>
+                </div>
             </div>
         </div>
+
         <div>
-
-
             <table class="table-cards">
                 <thead>
                 <tr>
@@ -74,8 +76,8 @@
                         <%= alerte ? "Stock faible" : "Stock ok" %>
                     </td>
                     <td data-label="Actions" class="actions-cell">
-                        <a href="<%= request.getContextPath() %>/produit/editer/<%= p.getId() %>">Editer</a>
-                        <a href="<%= request.getContextPath() %>/mouvements?produitId=<%= p.getId() %>">Mv stock</a>
+                        <a class="aButton actionButton" href="<%= request.getContextPath() %>/produit/editer/<%= p.getId() %>">Editer</a>
+                        <a class="aButton actionButton" href="<%= request.getContextPath() %>/mouvements?produitId=<%= p.getId() %>">Mv stock</a>
                     </td>
                 </tr>
                 <% }
