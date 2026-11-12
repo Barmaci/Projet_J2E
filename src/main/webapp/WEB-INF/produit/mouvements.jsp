@@ -26,7 +26,7 @@
     <meta charset="UTF-8">
     <title>Mouvements de stock - <%= h(produit.getDesignation()) %>
     </title>
-<%--    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/mouvement.css"/>--%>
+    <%--    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/mouvement.css"/>--%>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"/>
 </head>
 <body>

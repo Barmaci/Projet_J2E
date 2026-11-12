@@ -19,13 +19,13 @@
 
     <%@ include file="/WEB-INF/nav.jsp" %>
     <main class="content">
-        <div class="produits-top-div">
+        <div class="produits-top-div card">
             <h1>Liste des fournisseurs</h1>
             <div>
                 <a href="<%=request.getContextPath()%>/fournisseur/nouveau" class="aButton">Nouveau fournisseur</a>
             </div>
         </div>
-        <div>
+        <div >
 
             <table>
                 <thead>

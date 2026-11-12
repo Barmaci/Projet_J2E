@@ -1,8 +1,3 @@
-/* =====================================================
-   style.css : feuille de style unique de l'application
-   Pages : produits, produit, nouveau_produit, mouvements, nav
-   ===================================================== */
-
 /* ---------- 1. Variables ---------- */
 :root {
     --c-primary: #2c3e50;
@@ -194,6 +189,65 @@ a:hover {
 .form-produit button:hover {
     background: var(--c-accent-hover);
     text-decoration: none;
+}
+
+.btn-mv-stock{
+    background-color: var(--c-primary);
+}
+
+
+.btn-delete{
+    background-color: red;
+}
+
+.btn-delete:hover{
+    background-color: red;
+    opacity: 50%;
+}
+.btn-mv-stock:hover {
+    background-color: var(--c-primary) ;
+    opacity: 90%;
+
+}
+
+/* Button d'action ... */
+.btn-dots {
+    display: block;
+    background: transparent;
+    border: none;
+    border-radius: 1000px;
+    padding: 4px 8px;
+    margin: auto;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: bold;
+    color: #4b5563;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-x {
+    border: 1px solid var(--c-border);
+    border-radius: 1000px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.btn-dots:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    border-radius: 18px;
+}
+
+dialog {
+    border: 1px solid var(--c-border);
+}
+
+.actions-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
 }
 
 /* ---------- 7. Formulaires ---------- */
@@ -413,7 +467,6 @@ tr.alerte td {
         position: static;
         width: 100%;
     }
-
     .content {
         margin-left: 0;
         padding: var(--space);
@@ -429,97 +482,100 @@ tr.alerte td {
         grid-template-columns: 1fr;
     }
 
-    /* Tableau -> cartes */
-    .table-cards,
-    .table-cards tbody,
-    .table-cards tr,
-    .table-cards td {
-        display: block;
-        width: 100%;
-    }
-
-    .table-cards {
-        background: transparent;
-        box-shadow: none;
-    }
-
-    .table-cards thead {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        clip: rect(0 0 0 0);
-    }
-
-    .table-cards tbody tr {
-        background: var(--c-surface);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        margin-bottom: var(--space);
-        padding: 6px 14px;
-        border-left: 5px solid var(--c-ok);
-    }
-
-    .table-cards tbody tr:hover {
-        background: var(--c-surface);
-    }
-
-    .table-cards tbody tr.alerte {
-        background: var(--c-danger-bg);
-        border-left-color: var(--c-danger);
-    }
-
-    .table-cards tr.alerte td {
-        background: transparent;
-    }
-
-    .table-cards td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        text-align: right;
-        padding: 9px 0;
-        border-bottom: 1px dashed var(--c-border);
-    }
-
-    .table-cards td:last-child {
-        border-bottom: none;
-    }
-
-    .table-cards td::before {
-        content: attr(data-label);
-        font-weight: 600;
-        color: var(--c-primary);
-        text-align: left;
-        flex-shrink: 0;
-    }
-
-    .table-cards td.actions-cell {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-        gap: 8px;
-        padding-top: 12px;
-    }
-
-    .table-cards td.actions-cell::before {
-        display: none;
-    }
-
-    .table-cards td.actions-cell a {
-        margin: 0;
-        padding: 9px;
-        background: var(--c-primary);
-        color: #fff;
-        border-radius: 6px;
-    }
-
-    .table-cards tr.ligne-vide td {
-        justify-content: center;
-    }
-
-    .table-cards tr.ligne-vide td::before {
-        display: none;
-    }
 }
+
+/*{*/
+/*    !* Tableau -> cartes *!*/
+/*    .table-cards,*/
+/*    .table-cards tbody,*/
+/*    .table-cards tr,*/
+/*    .table-cards td {*/
+/*        display: block;*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    .table-cards {*/
+/*        background: transparent;*/
+/*        box-shadow: none;*/
+/*    }*/
+
+/*    .table-cards thead {*/
+/*        position: absolute;*/
+/*        width: 1px;*/
+/*        height: 1px;*/
+/*        overflow: hidden;*/
+/*        clip: rect(0 0 0 0);*/
+/*    }*/
+
+/*    .table-cards tbody tr {*/
+/*        background: var(--c-surface);*/
+/*        border-radius: var(--radius);*/
+/*        box-shadow: var(--shadow);*/
+/*        margin-bottom: var(--space);*/
+/*        padding: 6px 14px;*/
+/*        border-left: 5px solid var(--c-ok);*/
+/*    }*/
+
+/*    .table-cards tbody tr:hover {*/
+/*        background: var(--c-surface);*/
+/*    }*/
+
+/*    .table-cards tbody tr.alerte {*/
+/*        background: var(--c-danger-bg);*/
+/*        border-left-color: var(--c-danger);*/
+/*    }*/
+
+/*    .table-cards tr.alerte td {*/
+/*        background: transparent;*/
+/*    }*/
+
+/*    .table-cards td {*/
+/*        display: flex;*/
+/*        justify-content: space-between;*/
+/*        align-items: center;*/
+/*        gap: 12px;*/
+/*        text-align: right;*/
+/*        padding: 9px 0;*/
+/*        border-bottom: 1px dashed var(--c-border);*/
+/*    }*/
+
+/*    .table-cards td:last-child {*/
+/*        border-bottom: none;*/
+/*    }*/
+
+/*    .table-cards td::before {*/
+/*        content: attr(data-label);*/
+/*        font-weight: 600;*/
+/*        color: var(--c-primary);*/
+/*        text-align: left;*/
+/*        flex-shrink: 0;*/
+/*    }*/
+
+/*    .table-cards td.actions-cell {*/
+/*        flex-direction: column;*/
+/*        align-items: stretch;*/
+/*        text-align: center;*/
+/*        gap: 8px;*/
+/*        padding-top: 12px;*/
+/*    }*/
+
+/*    .table-cards td.actions-cell::before {*/
+/*        display: none;*/
+/*    }*/
+
+/*    .table-cards td.actions-cell a {*/
+/*        margin: 0;*/
+/*        padding: 9px;*/
+/*        background: var(--c-primary);*/
+/*        color: #fff;*/
+/*        border-radius: 6px;*/
+/*    }*/
+
+/*    .table-cards tr.ligne-vide td {*/
+/*        justify-content: center;*/
+/*    }*/
+
+/*    .table-cards tr.ligne-vide td::before {*/
+/*        display: none;*/
+/*    }*/
+/*}*/
