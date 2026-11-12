@@ -21,7 +21,6 @@
 
     <nav class="sidebar-nav">
         <ul>
-            <li><a href="<%= sbCtx %>/dashboard" class="<%= sbHome ? "active" : "" %>">🏠 Tableau de bord</a></li>
             <li><a href="<%= sbCtx %>/produit" class="<%= sbProduit ? "active" : "" %>">🛒 Produits</a></li>
             <% if (sbAdmin) { %>
             <li><a href="<%= sbCtx %>/fournisseur" class="<%= sbFournisseur ? "active" : "" %>">🚚 Fournisseurs</a></li>

@@ -22,13 +22,13 @@ public class AuthFilter implements Filter {
 
         String path = req.getRequestURI().substring(req.getContextPath().length());
 
-        // 1. Pages accessibles sans connexion
+        //  Pages accessibles sans connexion
         if (path.equals("/login") || path.startsWith("/css/")) {
             chain.doFilter(request, response);
             return;
         }
 
-        // 2. Il faut être connecté
+        //  Il faut être connecté
         HttpSession session = req.getSession(false);
         Utilisateur utilisateur = (session == null) ? null : (Utilisateur) session.getAttribute("utilisateur");
 
@@ -37,7 +37,7 @@ public class AuthFilter implements Filter {
             return;
         }
 
-        // 3. Fournisseurs et utilisateurs : réservés à l'admin
+        //  Fournisseurs et utilisateurs : réservés à l'admin
         boolean zoneAdmin = commence(path, "/fournisseur") || commence(path, "/utilisateur");
         if (zoneAdmin && utilisateur.getRole() != Role.ADMIN) {
             resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Accès réservé à l'administrateur");

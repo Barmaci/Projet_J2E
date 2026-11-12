@@ -46,7 +46,7 @@ public class UtilisateurService {
             throw new IllegalArgumentException("Ce login existe déjà");
         }
 
-        // Mot de passe laissé vide = on garde l'ancien
+
         if (u.getMotDePasse() == null || u.getMotDePasse().isBlank()) {
             u.setMotDePasse(existant.getMotDePasse());
         }
@@ -54,7 +54,6 @@ public class UtilisateurService {
         return utilisateurDao.update(u);
     }
 
-    // Connexion : renvoie l'utilisateur si le login et le mot de passe sont bons, sinon null
     public Utilisateur authentifier(String login, String motDePasse) {
         if (login == null || login.isBlank() || motDePasse == null) {
             return null;
@@ -65,7 +64,7 @@ public class UtilisateurService {
             return null;
         }
 
-        u.setMotDePasse(null); // on ne garde pas le mot de passe en session
+        u.setMotDePasse(null);
         return u;
     }
 

@@ -26,7 +26,7 @@
 
     <%@ include file="/WEB-INF/nav.jsp" %>
     <main class="content">
-        <div class="produits-top-div">
+        <div class="produits-top-div card">
             <h1>Liste des utilisateurs</h1>
             <div>
                 <a href="<%=request.getContextPath()%>/utilisateur/nouveau" class="aButton">Nouvel utilisateur</a>
@@ -55,7 +55,7 @@
                     <td><%= h(u.getLogin()) %></td>
                     <td><%= u.getRole() %></td>
                     <td>
-                        <a href="<%= request.getContextPath()%>/utilisateur/editer/<%=u.getId()%>">Editer</a>
+                        <a class="aButton" href="<%= request.getContextPath()%>/utilisateur/editer/<%=u.getId()%>">Editer</a>
                     </td>
                 </tr>
                 <% }

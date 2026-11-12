@@ -50,7 +50,7 @@
                     <td><%= f.getTelephone() %></td>
                     <td><%= f.getAdresse() %></td>
                     <td>
-                        <a href="<%= request.getContextPath()%>/fournisseur/editer/<%=f.getId()%>">Editer</a>
+                        <a class="aButton" href="<%= request.getContextPath()%>/fournisseur/editer/<%=f.getId()%>">Editer</a>
                     </td>
                 </tr>
                 <% }
