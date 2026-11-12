@@ -31,6 +31,18 @@ public class ProduitServlet extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/produit/produits.jsp").forward(req, resp);
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String method = req.getParameter("method");
+        int produitId = parseIntOrDefault(req.getParameter("produitId"),0);
+
+        if (method.equalsIgnoreCase("delete") && produitId != 0){
+            service.supprimer(produitId);
+
+            resp.sendRedirect( req.getContextPath() + "/produit");
+        }
+    }
+
     // Methode qui retourne la valeur int du string s si c'est un nbr ou la valeur def
     private int parseIntOrDefault(String s, int def) {
         try { return Integer.parseInt(s); } catch (Exception e) { return def; }

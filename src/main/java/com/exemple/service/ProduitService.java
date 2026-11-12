@@ -32,4 +32,8 @@ public class ProduitService {
         service.enregistrerMouvement(p.getId(), TypeMouvementStock.ENTREE, "Stock initiale", p.getQuantiteStock());
 
     }
+
+    public void supprimer(Integer id){
+        produitDao.delete(id);
+    }
 }

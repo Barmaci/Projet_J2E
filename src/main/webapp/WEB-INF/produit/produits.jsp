@@ -13,7 +13,6 @@
     <meta charset="UTF-8">
     <title>Produits</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%--    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/produit.css">--%>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
@@ -60,24 +59,32 @@
                                         && p.getQuantiteStock() <= p.getSeuilAlerte();
                 %>
                 <tr class="<%= alerte ? "alerte" : "" %>">
-                    <td data-label="ID"><%= p.getId() %>
+                    <td><%= p.getId() %>
                     </td>
-                    <td data-label="Référence"><%= p.getReference() %>
+                    <td><%= p.getReference() %>
                     </td>
-                    <td data-label="Désignation"><%= p.getDesignation() %>
+                    <td><%= p.getDesignation() %>
                     </td>
-                    <td data-label="Prix unitaire"><%= p.getPrixUnitaire() %>
+                    <td><%= p.getPrixUnitaire() %>
                     </td>
-                    <td data-label="Stock"><%= p.getQuantiteStock() %>
+                    <td><%= p.getQuantiteStock() %>
                     </td>
-                    <td data-label="Seuil d'alerte"><%= p.getSeuilAlerte() %>
+                    <td><%= p.getSeuilAlerte() %>
                     </td>
-                    <td data-label="État" class="<%= alerte ? "etat-faible" : "etat-ok" %>">
+                    <td class="<%= alerte ? "etat-faible" : "etat-ok" %>">
                         <%= alerte ? "Stock faible" : "Stock ok" %>
                     </td>
-                    <td data-label="Actions" class="actions-cell">
-                        <a class="aButton actionButton" href="<%= request.getContextPath() %>/produit/editer/<%= p.getId() %>">Editer</a>
-                        <a class="aButton actionButton" href="<%= request.getContextPath() %>/mouvements?produitId=<%= p.getId() %>">Mv stock</a>
+                    <td class="actions-cell">
+                            <div class="actions-wrapper">
+                                <a class="aButton " href="<%= request.getContextPath() %>/produit/editer/<%= p.getId() %>">Editer</a>
+                                <a class="aButton btn-mv-stock" href="<%= request.getContextPath() %>/mouvements?produitId=<%= p.getId() %>">Mv stock</a>
+
+                                <form action="<%= request.getContextPath() %>/produit" method="POST">
+                                    <input name="method" value="delete" hidden/>
+                                    <input name="produitId" value="<%=p.getId()%>" hidden/>
+                                    <button class="aButton btn-delete" type="submit">Supprimer</button>
+                                </form>
+                            </div>
                     </td>
                 </tr>
                 <% }

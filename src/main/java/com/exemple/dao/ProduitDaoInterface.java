@@ -10,5 +10,6 @@ public interface ProduitDaoInterface {
     public Produit findOne(int id);
     public void save(Produit produit);
     public Produit update(Produit newProduit);
+    public void delete(int id);
     public long count();
 }

@@ -70,6 +70,21 @@ public class ProduitDao implements ProduitDaoInterface {
     }
 
     @Override
+    public void delete(int id) {
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSession()) {
+            tx = session.beginTransaction();
+            session.createQuery("DELETE  FROM Produit p where p.id = :pid")
+                    .setParameter("pid", id)
+                    .executeUpdate();
+            tx.commit();
+        } catch (RuntimeException e) {
+            if (tx != null && tx.isActive()) tx.rollback();
+            throw e;
+        }
+    }
+
+    @Override
     public long count() {
         try (Session session = HibernateUtil.getSession()) {
             return session.createQuery("SELECT count(p) FROM Produit p", Long.class)

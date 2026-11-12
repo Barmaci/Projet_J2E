@@ -191,8 +191,63 @@ a:hover {
     text-decoration: none;
 }
 
-.actionButton {
-    padding: 5px 14px;
+.btn-mv-stock{
+    background-color: var(--c-primary);
+}
+
+
+.btn-delete{
+    background-color: red;
+}
+
+.btn-delete:hover{
+    background-color: red;
+    opacity: 50%;
+}
+.btn-mv-stock:hover {
+    background-color: var(--c-primary) ;
+    opacity: 90%;
+
+}
+
+/* Button d'action ... */
+.btn-dots {
+    display: block;
+    background: transparent;
+    border: none;
+    border-radius: 1000px;
+    padding: 4px 8px;
+    margin: auto;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: bold;
+    color: #4b5563;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-x {
+    border: 1px solid var(--c-border);
+    border-radius: 1000px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.btn-dots:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    border-radius: 18px;
+}
+
+dialog {
+    border: 1px solid var(--c-border);
+}
+
+.actions-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
 }
 
 /* ---------- 7. Formulaires ---------- */
