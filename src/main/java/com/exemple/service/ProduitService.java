@@ -25,7 +25,7 @@ public class ProduitService {
         return produitDao.update(produit);
     }
 
-    public void creer(Produit p) {
+    public void creer(Produit p ) {
         final MouvementStockService service = new MouvementStockService();
 
         produitDao.save(p);

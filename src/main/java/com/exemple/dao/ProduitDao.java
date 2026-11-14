@@ -25,7 +25,11 @@ public class ProduitDao implements ProduitDaoInterface {
     @Override
     public Produit findOne(int id) {
         try (Session session = HibernateUtil.getSession()) {
-            return session.find(Produit.class, id);
+            Produit p = session.find(Produit.class, id);
+            if (p != null && p.getFournisseur() != null) {
+                HibernateUtil.initialize(p.getFournisseur());
+            }
+            return p;
         }
     }
 
@@ -43,25 +47,13 @@ public class ProduitDao implements ProduitDaoInterface {
     }
 
     @Override
-    public Produit update(Produit newProduit) {
+    public Produit update(Produit produit) {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
-
-            Produit existant = session.find(Produit.class, newProduit.getId());
-            if (existant == null) {
-                tx.rollback();
-                return null;
-            }
-
-            existant.setReference(newProduit.getReference());
-            existant.setDesignation(newProduit.getDesignation());
-            existant.setPrixUnitaire(newProduit.getPrixUnitaire());
-            existant.setQuantiteStock(newProduit.getQuantiteStock());
-            existant.setSeuilAlerte(newProduit.getSeuilAlerte());
-
+            Produit merged = session.merge(produit);
             tx.commit();
-            return existant;
+            return merged;
 
         } catch (RuntimeException e) {
             if (tx != null && tx.isActive()) tx.rollback();

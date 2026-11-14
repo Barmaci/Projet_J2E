@@ -49,6 +49,10 @@
             <input type="number" id="seuilAlerte" name="seuilAlerte" min="0" required
                    value="<%= produit.getSeuilAlerte() %>">
 
+            <div class="champ">
+                <label for="fs">Fournisseur</label>
+                <input id="fs" readonly type="text" value="<%=produit.getFournisseur().getNom() + " | " + produit.getFournisseur().getAdresse()%>"/>
+            </div>
             <div class="actions">
                 <button type="submit">Enregistrer</button>
                 <a href="<%= ctx %>/produit">Retour à la liste</a>

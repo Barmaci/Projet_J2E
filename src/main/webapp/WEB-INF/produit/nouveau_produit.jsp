@@ -1,11 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.exemple.model.Fournisseur" %>
+<%
+    List<Fournisseur> fournisseurs = (List<Fournisseur>) request.getAttribute("fournisseurs");
+%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Nouveau produit</title>
-<%--    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/produit.css">--%>
+    <%--    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/produit.css">--%>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
@@ -51,6 +56,15 @@
                 <input type="number" id="seuilAlerte" name="seuilAlerte"
                        min="0" step="1"
                        placeholder="0">
+            </div>
+            <div class="champ">
+                <label for="fs">Fournisseur</label>
+                <select id="fs" name="fournisseur">
+                    <% for (Fournisseur f : fournisseurs) { %>
+                    <option value="<%=f.getId()%>"><%=f.getNom()%> | <%=f.getAdresse()%>
+                    </option>
+                    <%}%>
+                </select>
             </div>
 
             <div class="actions">

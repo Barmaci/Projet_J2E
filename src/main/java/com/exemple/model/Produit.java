@@ -24,7 +24,11 @@ public class Produit implements Serializable {
     @Column(name = "seuil_alerte", nullable = false)
     private Integer seuilAlerte;
 
-    @OneToMany(mappedBy = "produit")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fournisseur_id", nullable = false)
+    private Fournisseur fournisseur;
+
+    @OneToMany(mappedBy = "produit", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<MouvementStock> mouvementStock = new ArrayList<>();
 
     public Produit() {
@@ -90,4 +94,11 @@ public class Produit implements Serializable {
         this.seuilAlerte = seuilAlerte;
     }
 
+    public Fournisseur getFournisseur(){
+        return fournisseur;
+    }
+
+    public void setFournisseur(Fournisseur  fournisseur){
+        this.fournisseur = fournisseur;
+    }
 }
