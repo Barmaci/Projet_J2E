@@ -2,6 +2,7 @@ package com.exemple.controller.produit;
 
 import com.exemple.model.Fournisseur;
 import com.exemple.model.Produit;
+import com.exemple.model.Utilisateur;
 import com.exemple.service.FournisseurService;
 import com.exemple.service.ProduitService;
 import com.exemple.util.PageResult;
@@ -33,6 +34,9 @@ public class NouveauProduitServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Utilisateur utilisateur = (Utilisateur) req.getSession().getAttribute("utilisateur");
+        if (utilisateur == null) throw  new RuntimeException("Unauthorized");
+
         Produit p = new Produit();
         String reference   = trim(req.getParameter("reference"));
         String designation = trim(req.getParameter("designation"));
@@ -45,7 +49,7 @@ public class NouveauProduitServlet extends HttpServlet {
         p.setSeuilAlerte(Integer.parseInt( req.getParameter("seuilAlerte")));
         p.setFournisseur(fournisseurService.listerFournisseur(fId));
 
-        service.creer(p);
+        service.creer(p, utilisateur);
 
         resp.sendRedirect(req.getContextPath() + "/produit");
     }

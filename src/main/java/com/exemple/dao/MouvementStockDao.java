@@ -35,7 +35,9 @@ public class MouvementStockDao implements MouvementStockDaoInterface {
     @Override
     public List<MouvementStock> findAllForProduit(int pId) {
         try (Session session = HibernateUtil.getSession()) {
-            String hql = "SELECT mv FROM MouvementStock mv WHERE mv.produit.id = :id ORDER BY mv.date DESC";
+            String hql = "SELECT mv FROM MouvementStock mv " +
+                    "JOIN FETCH mv.utilisateur " + // sélecter l'utilisateur car le fetch était Lazy
+                    "WHERE mv.produit.id = :id ORDER BY mv.date DESC";
 
             return session.createQuery(hql, MouvementStock.class)
                     .setParameter("id", pId)

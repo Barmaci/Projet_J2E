@@ -28,6 +28,10 @@ public class MouvementStock implements Serializable {
     @JoinColumn(name = "produit_id", nullable = false)
     private Produit produit;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "utilisateur_id", nullable = false)
+    private Utilisateur utilisateur;
+
     public MouvementStock() {
     }
 
@@ -85,5 +89,13 @@ public class MouvementStock implements Serializable {
 
     public void setProduit(Produit produit) {
         this.produit = produit;
+    }
+
+    public Utilisateur getUtilisateur(){
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur){
+        this.utilisateur = utilisateur;
     }
 }

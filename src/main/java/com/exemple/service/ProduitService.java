@@ -3,6 +3,7 @@ package com.exemple.service;
 import com.exemple.dao.ProduitDao;
 import com.exemple.model.Produit;
 import com.exemple.model.TypeMouvementStock;
+import com.exemple.model.Utilisateur;
 import com.exemple.util.PageResult;
 
 import java.util.List;
@@ -25,11 +26,11 @@ public class ProduitService {
         return produitDao.update(produit);
     }
 
-    public void creer(Produit p ) {
+    public void creer(Produit p, Utilisateur utilisateur) {
         final MouvementStockService service = new MouvementStockService();
 
         produitDao.save(p);
-        service.enregistrerMouvement(p.getId(), TypeMouvementStock.ENTREE, "Stock initiale", p.getQuantiteStock());
+        service.enregistrerMouvement(p.getId(), TypeMouvementStock.ENTREE, "Stock initiale", p.getQuantiteStock(), utilisateur);
 
     }
 

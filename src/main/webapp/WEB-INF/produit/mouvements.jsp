@@ -97,6 +97,7 @@
                     <th>Type</th>
                     <th>Quantité</th>
                     <th>Commentaire</th>
+                    <th>Effectuer par</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -113,6 +114,9 @@
                     <td><%= m.getQuantite() %>
                     </td>
                     <td><%= h(m.getCommentaire()) %>
+                    </td>
+                    <td>
+                        <%= m.getUtilisateur().getLogin()%>
                     </td>
                 </tr>
                 <% }
