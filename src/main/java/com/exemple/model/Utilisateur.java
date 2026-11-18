@@ -2,6 +2,7 @@ package com.exemple.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "utilisateurs")
@@ -20,6 +21,9 @@ public class Utilisateur implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<MouvementStock> mouvementStocks;
 
     public Utilisateur() {}
 

@@ -30,18 +30,17 @@ public class EditProduitServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String reference   = req.getParameter("reference");
         String designation = req.getParameter("designation");
         String prixStr     = req.getParameter("prixUnitaire");
-//        String stockStr    = req.getParameter("quantiteStock");
         String seuilStr    = req.getParameter("seuilAlerte");
 
-        Produit p = new Produit();
-        p.setId(Integer.parseInt(req.getParameter("id")));
+        Produit p = service.listerProduit(Integer.parseInt(req.getParameter("id")));
+
         p.setReference(reference);
         p.setDesignation(designation);
         p.setPrixUnitaire(Double.parseDouble(prixStr));
-//        p.setQuantiteStock(Integer.parseInt(stockStr));
         p.setSeuilAlerte(Integer.parseInt(seuilStr));
 
         service.modifier(p);

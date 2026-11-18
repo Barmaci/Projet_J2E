@@ -1,6 +1,8 @@
 package com.exemple.model;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name ="fournisseurs")
@@ -12,6 +14,9 @@ public class Fournisseur implements Serializable{
     private String nom;
     private String telephone;
     private String adresse;
+
+    @OneToMany(mappedBy = "fournisseur", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Produit> produits = new ArrayList<>();
 
     //Constructeurs
     public Fournisseur() {
@@ -55,5 +60,9 @@ public class Fournisseur implements Serializable{
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public List<Produit> getProduits(){
+        return produits;
     }
 }

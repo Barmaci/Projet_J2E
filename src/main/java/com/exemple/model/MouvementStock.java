@@ -25,8 +25,12 @@ public class MouvementStock implements Serializable {
     private String commentaire;
 
     @ManyToOne(fetch = FetchType.LAZY) // Lazy fetch permet de ne pas fetcher les mouvement de stock d'un produit lorsque on fetch un produit`
-    @JoinColumn(name = "produit_id")
+    @JoinColumn(name = "produit_id", nullable = false)
     private Produit produit;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "utilisateur_id", nullable = false)
+    private Utilisateur utilisateur;
 
     public MouvementStock() {
     }
@@ -85,5 +89,13 @@ public class MouvementStock implements Serializable {
 
     public void setProduit(Produit produit) {
         this.produit = produit;
+    }
+
+    public Utilisateur getUtilisateur(){
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur){
+        this.utilisateur = utilisateur;
     }
 }

@@ -4,6 +4,7 @@ import com.exemple.dao.MouvementStockDao;
 import com.exemple.model.MouvementStock;
 import com.exemple.model.Produit;
 import com.exemple.model.TypeMouvementStock;
+import com.exemple.model.Utilisateur;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,7 +13,7 @@ public class MouvementStockService {
     private final MouvementStockDao mouvementStockDao = new MouvementStockDao();
     private final ProduitService produitService = new ProduitService();
 
-    public void enregistrerMouvement( Integer pId, TypeMouvementStock type, String cmt, int q){
+    public void enregistrerMouvement(Integer pId, TypeMouvementStock type, String cmt, int q, Utilisateur utilisateur){
         Produit p = produitService.listerProduit(pId);
 
         int delta = type == TypeMouvementStock.ENTREE ? q : -q;
@@ -22,6 +23,7 @@ public class MouvementStockService {
         mv.setCommentaire(cmt);
         mv.setQuantite(q);
         mv.setDate(LocalDateTime.now());
+        mv.setUtilisateur(utilisateur);
 
         mouvementStockDao.save(mv , pId, delta);
 
