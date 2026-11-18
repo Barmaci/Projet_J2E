@@ -27,4 +27,9 @@ public class FournisseurService {
     public void creer(Fournisseur f) {
         fournisseurDao.save(f);
     }
+
+    // Renvoie true si le fournisseur a été supprimé, false s'il n'existait pas
+    public boolean supprimer(int id) {
+        return fournisseurDao.delete(id);
+    }
 }

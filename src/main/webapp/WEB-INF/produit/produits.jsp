@@ -72,7 +72,7 @@
                     <td><%= p.getSeuilAlerte() %>
                     </td>
                     <td class="<%= alerte ? "etat-faible" : "etat-ok" %>">
-                        <%= alerte ? "Stock faible" : "Stock ok" %>
+                        <%= alerte ? "Stock insuffisant" : "En stock" %>
                     </td>
                     <td class="actions-cell">
                             <div class="actions-wrapper">

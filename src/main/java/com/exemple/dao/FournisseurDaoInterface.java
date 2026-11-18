@@ -10,5 +10,6 @@ public interface FournisseurDaoInterface {
     public Fournisseur findOne(int id);
     public void save(Fournisseur fournisseur);
     public Fournisseur update(Fournisseur newFournisseur);
+    public boolean delete(int id);
     public long count();
 }

@@ -67,6 +67,29 @@ public class FournisseurDao implements FournisseurDaoInterface {
         }
     }
 
+    // Supprime le fournisseur : renvoie true s'il existait et a été supprimé, false sinon
+    @Override
+    public boolean delete(int id) {
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSession()) {
+            tx = session.beginTransaction();
+
+            Fournisseur existant = session.find(Fournisseur.class, id);
+            if (existant == null) {
+                tx.rollback();
+                return false;
+            }
+
+            session.remove(existant);
+            tx.commit();
+            return true;
+
+        } catch (RuntimeException e) {
+            if (tx != null && tx.isActive()) tx.rollback();
+            throw e;
+        }
+    }
+
     @Override
     public long count() {
         try (Session session = HibernateUtil.getSession()) {

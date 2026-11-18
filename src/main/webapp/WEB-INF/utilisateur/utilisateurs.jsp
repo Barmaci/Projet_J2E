@@ -12,6 +12,13 @@
 <%
     PageResult<Utilisateur> result = (PageResult<Utilisateur>) request.getAttribute("result");
     List<Utilisateur> contenu = result.getContenu();
+
+    // Utilisateur actuellement connecté (pour ne pas lui proposer de se supprimer)
+    Utilisateur moi = (Utilisateur) session.getAttribute("utilisateur");
+
+    // Message d'erreur laissé par la servlet de suppression (affiché une seule fois)
+    String flashErreur = (String) session.getAttribute("flashErreur");
+    session.removeAttribute("flashErreur");
 %>
 <!DOCTYPE html>
 <html>
@@ -26,12 +33,17 @@
 
     <%@ include file="/WEB-INF/nav.jsp" %>
     <main class="content">
-        <div class="produits-top-div card">
+        <div class="produits-top-div">
             <h1>Liste des utilisateurs</h1>
             <div>
                 <a href="<%=request.getContextPath()%>/utilisateur/nouveau" class="aButton">Nouvel utilisateur</a>
             </div>
         </div>
+
+        <% if (flashErreur != null) { %>
+        <p class="erreur"><%= h(flashErreur) %></p>
+        <% } %>
+
         <div>
 
             <table>
@@ -49,13 +61,27 @@
                     <td colspan="4">Aucun utilisateur.</td>
                 </tr>
                 <% } else {
-                    for (Utilisateur u : contenu) { %>
+                    for (Utilisateur u : contenu) {
+                        boolean estMoi = moi != null && moi.getId().equals(u.getId()); %>
                 <tr>
                     <td><%= u.getId() %></td>
                     <td><%= h(u.getLogin()) %></td>
                     <td><%= u.getRole() %></td>
                     <td>
                         <a class="aButton" href="<%= request.getContextPath()%>/utilisateur/editer/<%=u.getId()%>">Editer</a>
+                        <% if (!estMoi) { %>
+                        <form method="post" action="<%= request.getContextPath() %>/utilisateur/supprimer"
+                              style="display:inline; margin-left:10px;"
+                              onsubmit="return confirm('Supprimer cet utilisateur ?');">
+                            <input type="hidden" name="id" value="<%= u.getId() %>">
+                            <button class="aButton btn-delete" type="submit"
+                                    >
+                                Supprimer
+                            </button>
+                        </form>
+                        <% } else { %>
+                        <span style="margin-left:10px; color:#888;">(vous)</span>
+                        <% } %>
                     </td>
                 </tr>
                 <% }

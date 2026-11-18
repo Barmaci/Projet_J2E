@@ -5,6 +5,10 @@
 <%
     PageResult<Fournisseur> result = (PageResult<Fournisseur>) request.getAttribute("result");
     List<Fournisseur> contenu = result.getContenu();
+
+    // Message d'erreur laissé par la servlet de suppression (affiché une seule fois)
+    String flashErreur = (String) session.getAttribute("flashErreur");
+    session.removeAttribute("flashErreur");
 %>
 <!DOCTYPE html>
 <html>
@@ -19,13 +23,18 @@
 
     <%@ include file="/WEB-INF/nav.jsp" %>
     <main class="content">
-        <div class="produits-top-div card">
+        <div class="produits-top-div">
             <h1>Liste des fournisseurs</h1>
             <div>
                 <a href="<%=request.getContextPath()%>/fournisseur/nouveau" class="aButton">Nouveau fournisseur</a>
             </div>
         </div>
-        <div >
+
+        <% if (flashErreur != null) { %>
+        <p class="erreur"><%= flashErreur %></p>
+        <% } %>
+
+        <div>
 
             <table>
                 <thead>
@@ -51,6 +60,15 @@
                     <td><%= f.getAdresse() %></td>
                     <td>
                         <a class="aButton" href="<%= request.getContextPath()%>/fournisseur/editer/<%=f.getId()%>">Editer</a>
+                        <form method="post" action="<%= request.getContextPath() %>/fournisseur/supprimer"
+                              style="display:inline; margin-left:10px;"
+                              onsubmit="return confirm('Supprimer ce fournisseur ?');">
+                            <input type="hidden" name="id" value="<%= f.getId() %>">
+                            <button class="aButton btn-delete" type="submit"
+                                   >
+                                Supprimer
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 <% }

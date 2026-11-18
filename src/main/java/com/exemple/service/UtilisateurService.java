@@ -1,6 +1,7 @@
 package com.exemple.service;
 
 import com.exemple.dao.UtilisateurDao;
+import com.exemple.model.Role;
 import com.exemple.model.Utilisateur;
 import com.exemple.util.PageResult;
 
@@ -46,7 +47,7 @@ public class UtilisateurService {
             throw new IllegalArgumentException("Ce login existe déjà");
         }
 
-
+        // Mot de passe laissé vide = on garde l'ancien
         if (u.getMotDePasse() == null || u.getMotDePasse().isBlank()) {
             u.setMotDePasse(existant.getMotDePasse());
         }
@@ -54,6 +55,26 @@ public class UtilisateurService {
         return utilisateurDao.update(u);
     }
 
+    // Supprime un utilisateur. idConnecte = id de la personne qui fait la demande.
+    // Renvoie true si supprimé, false si l'utilisateur n'existait pas.
+    public boolean supprimer(int id, Integer idConnecte) {
+        if (idConnecte != null && idConnecte == id) {
+            throw new IllegalArgumentException("Vous ne pouvez pas supprimer votre propre compte");
+        }
+
+        Utilisateur cible = utilisateurDao.findOne(id);
+        if (cible == null) {
+            return false;
+        }
+
+        if (cible.getRole() == Role.ADMIN && utilisateurDao.countByRole(Role.ADMIN) <= 1) {
+            throw new IllegalArgumentException("Impossible de supprimer le dernier administrateur");
+        }
+
+        return utilisateurDao.delete(id);
+    }
+
+    // Connexion : renvoie l'utilisateur si le login et le mot de passe sont bons, sinon null
     public Utilisateur authentifier(String login, String motDePasse) {
         if (login == null || login.isBlank() || motDePasse == null) {
             return null;
@@ -64,7 +85,7 @@ public class UtilisateurService {
             return null;
         }
 
-        u.setMotDePasse(null);
+        u.setMotDePasse(null); // on ne garde pas le mot de passe en session
         return u;
     }
 
