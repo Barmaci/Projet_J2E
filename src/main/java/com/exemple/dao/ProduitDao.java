@@ -66,12 +66,18 @@ public class ProduitDao implements ProduitDaoInterface {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
-            session.createQuery("DELETE  FROM Produit p where p.id = :pid")
-                    .setParameter("pid", id)
-                    .executeUpdate();
+
+            Produit produit = session.find(Produit.class, id);
+
+            if (produit != null) {
+                session.remove(produit);
+            }
+
             tx.commit();
         } catch (RuntimeException e) {
-            if (tx != null && tx.isActive()) tx.rollback();
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
             throw e;
         }
     }
