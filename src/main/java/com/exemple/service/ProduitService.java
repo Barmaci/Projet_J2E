@@ -29,8 +29,11 @@ public class ProduitService {
     public void creer(Produit p, Utilisateur utilisateur) {
         final MouvementStockService service = new MouvementStockService();
 
+        int stockInitial = p.getQuantiteStock();
+        p.setQuantiteStock(0);
+
         produitDao.save(p);
-        service.enregistrerMouvement(p.getId(), TypeMouvementStock.ENTREE, "Stock initiale", p.getQuantiteStock(), utilisateur);
+        service.enregistrerMouvement(p.getId(), TypeMouvementStock.ENTREE, "Stock initiale", stockInitial, utilisateur);
 
     }
 

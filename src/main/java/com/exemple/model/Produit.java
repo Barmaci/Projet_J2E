@@ -15,6 +15,7 @@ public class Produit implements Serializable {
 
     @Column(name = "reference", nullable = false, unique = true)
     private String reference;
+
     @Column(name = "designation", nullable = false)
     private String designation;
     @Column(name = "prix_unitaire", nullable = false)
